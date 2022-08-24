@@ -16,16 +16,24 @@ enum NewsList
 {
   // MARK: Use cases
   
-  enum Something
-  {
-    struct Request
-    {
+  enum FetchNews {
+    struct Request {
+        
     }
-    struct Response
-    {
+      
+    struct Response {
+ 
     }
-    struct ViewModel
-    {
+      
+    struct ViewModel {
+        struct DisplayedNews {
+            var id: String?
+            var urlToImage: String?
+            var title: String?
+            var articleDescription: String?
+        }
+        
+        var displayedNews: [DisplayedNews]
     }
   }
 }

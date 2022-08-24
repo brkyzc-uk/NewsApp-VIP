@@ -12,9 +12,9 @@
 
 import UIKit
 
-protocol NewsListDisplayLogic: class
+protocol NewsListDisplayLogic: AnyObject
 {
-  func displaySomething(viewModel: NewsList.Something.ViewModel)
+  func displaySomething(viewModel: NewsList.FetchNews.ViewModel)
 }
 
 class NewsListViewController: UIViewController, NewsListDisplayLogic
@@ -78,11 +78,11 @@ class NewsListViewController: UIViewController, NewsListDisplayLogic
   
   func doSomething()
   {
-    let request = NewsList.Something.Request()
+    let request = NewsList.FetchNews.Request()
     interactor?.doSomething(request: request)
   }
   
-  func displaySomething(viewModel: NewsList.Something.ViewModel)
+  func displaySomething(viewModel: NewsList.FetchNews.ViewModel)
   {
     //nameTextField.text = viewModel.name
   }

@@ -10,11 +10,11 @@
 //  see http://clean-swift.com
 //
 
-import UIKit
+import Foundation
 
 protocol NewsListBusinessLogic
 {
-  func doSomething(request: NewsList.Something.Request)
+  func doSomething(request: NewsList.FetchNews.Request)
 }
 
 protocol NewsListDataStore
@@ -30,12 +30,12 @@ class NewsListInteractor: NewsListBusinessLogic, NewsListDataStore
   
   // MARK: Do something
   
-  func doSomething(request: NewsList.Something.Request)
+  func doSomething(request: NewsList.FetchNews.Request)
   {
     worker = NewsListWorker()
     worker?.doSomeWork()
     
-    let response = NewsList.Something.Response()
+    let response = NewsList.FetchNews.Response()
     presenter?.presentSomething(response: response)
   }
 }
