@@ -14,28 +14,36 @@ import Foundation
 
 protocol NewsListBusinessLogic
 {
-  func doSomething(request: NewsList.FetchNews.Request)
+  func fetchNews(request: NewsList.FetchNews.Request)
 }
 
 protocol NewsListDataStore
 {
-  //var name: String { get set }
+    var news: [NewsResponseModel]? { get }
 }
 
 class NewsListInteractor: NewsListBusinessLogic, NewsListDataStore
 {
   var presenter: NewsListPresentationLogic?
   var worker: NewsListWorker?
-  //var name: String = ""
+    
+  var news: [NewsResponseModel]?
+ 
   
   // MARK: Do something
   
-  func doSomething(request: NewsList.FetchNews.Request)
+  func fetchNews(request: NewsList.FetchNews.Request)
   {
-    worker = NewsListWorker()
-    worker?.doSomeWork()
+      worker = NewsListWorker(service: APIService())
+      worker?.fetchNews(completion: { (news, error) in
+          if error != nil {
+              //TODO: Run Clean swift error method
+          } else {
+              self.news = news
+              let response = NewsList.FetchNews.Response(news: news)
+              self.presenter?.presentNews(response: response)
+          }
+      })
     
-    let response = NewsList.FetchNews.Response()
-    presenter?.presentSomething(response: response)
   }
 }

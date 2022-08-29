@@ -11,10 +11,11 @@
 //
 
 import UIKit
+import SDWebImage
 
 protocol NewsDetailDisplayLogic: class
 {
-  func displaySomething(viewModel: NewsDetail.Something.ViewModel)
+  func displayFetchedNews(viewModel: NewsDetail.FetchNews.ViewModel)
 }
 
 class NewsDetailViewController: UIViewController, NewsDetailDisplayLogic
@@ -22,7 +23,12 @@ class NewsDetailViewController: UIViewController, NewsDetailDisplayLogic
   var interactor: NewsDetailBusinessLogic?
   var router: (NSObjectProtocol & NewsDetailRoutingLogic & NewsDetailDataPassing)?
 
-  // MARK: Object lifecycle
+    @IBOutlet weak var newsImage: UIImageView!
+    @IBOutlet weak var newsDescriptionLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    
+    // MARK: Object lifecycle
   
   override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?)
   {
@@ -69,21 +75,26 @@ class NewsDetailViewController: UIViewController, NewsDetailDisplayLogic
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+    fetchNews()
   }
   
   // MARK: Do something
   
   //@IBOutlet weak var nameTextField: UITextField!
   
-  func doSomething()
+  func fetchNews()
   {
-    let request = NewsDetail.Something.Request()
-    interactor?.doSomething(request: request)
+    let request = NewsDetail.FetchNews.Request()
+    interactor?.fetchNews(request: request)
   }
   
-  func displaySomething(viewModel: NewsDetail.Something.ViewModel)
+  func displayFetchedNews(viewModel: NewsDetail.FetchNews.ViewModel)
   {
-    //nameTextField.text = viewModel.name
+      self.titleLabel.isHidden = false
+      self.newsDescriptionLabel.isHidden = false
+      self.newsImage.isHidden = false
+      self.titleLabel.text = viewModel.displayedNews.title
+      self.newsDescriptionLabel.text = viewModel.displayedNews.articleDescription
+      self.newsImage.sd_setImage(with: URL(string: viewModel.displayedNews.urlToImage ?? ""))
   }
 }

@@ -22,7 +22,7 @@ enum NewsList
     }
       
     struct Response {
- 
+        var news: [NewsResponseModel]
     }
       
     struct ViewModel {

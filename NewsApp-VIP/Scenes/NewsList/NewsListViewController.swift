@@ -14,11 +14,24 @@ import UIKit
 
 protocol NewsListDisplayLogic: AnyObject
 {
-  func displaySomething(viewModel: NewsList.FetchNews.ViewModel)
+  func displayFetchedNews(viewModel: NewsList.FetchNews.ViewModel)
+  func displayNewsDetail()
 }
 
-class NewsListViewController: UIViewController, NewsListDisplayLogic
+class NewsListViewController: UIViewController, NewsListDisplayLogic, UITableViewDataSource
 {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        return cell
+    }
+    
+    
+  @IBOutlet weak var tableView: UITableView!
+    
   var interactor: NewsListBusinessLogic?
   var router: (NSObjectProtocol & NewsListRoutingLogic & NewsListDataPassing)?
 
@@ -63,27 +76,42 @@ class NewsListViewController: UIViewController, NewsListDisplayLogic
       }
     }
   }
+    
+    
   
   // MARK: View lifecycle
   
   override func viewDidLoad()
   {
     super.viewDidLoad()
-    doSomething()
+    fetchNews()
+      self.navigationItem.title = "Top News"
+      setupTableView()
+      
   }
+    
+    private func setupTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(NewsListTableViewCell.self)
+    }
   
-  // MARK: Do something
+  // MARK: Fetch News
+    
+  var displayedNews: [NewsList.FetchNews.ViewModel.DisplayedNews] = []
   
-  //@IBOutlet weak var nameTextField: UITextField!
   
-  func doSomething()
-  {
+  func fetchNews() {
     let request = NewsList.FetchNews.Request()
-    interactor?.doSomething(request: request)
+    interactor?.fetchNews(request: request)
   }
   
-  func displaySomething(viewModel: NewsList.FetchNews.ViewModel)
-  {
-    //nameTextField.text = viewModel.name
+  func displayFetchedNews(viewModel: NewsList.FetchNews.ViewModel) {
+      displayedNews = viewModel.displayedNews
+      //tableView.reloadData()
+  }
+    
+  func displayNewsDetail() {
+      router?.routeToNewsDetail(segue: nil)
   }
 }

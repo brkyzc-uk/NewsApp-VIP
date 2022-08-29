@@ -12,49 +12,14 @@
 
 import UIKit
 
-@objc protocol NewsDetailRoutingLogic
-{
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
+@objc protocol NewsDetailRoutingLogic {
 }
 
-protocol NewsDetailDataPassing
-{
+protocol NewsDetailDataPassing {
   var dataStore: NewsDetailDataStore? { get }
 }
 
-class NewsDetailRouter: NSObject, NewsDetailRoutingLogic, NewsDetailDataPassing
-{
+class NewsDetailRouter: NSObject, NewsDetailRoutingLogic, NewsDetailDataPassing {
   weak var viewController: NewsDetailViewController?
   var dataStore: NewsDetailDataStore?
-  
-  // MARK: Routing
-  
-  //func routeToSomewhere(segue: UIStoryboardSegue?)
-  //{
-  //  if let segue = segue {
-  //    let destinationVC = segue.destination as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //  } else {
-  //    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-  //    let destinationVC = storyboard.instantiateViewController(withIdentifier: "SomewhereViewController") as! SomewhereViewController
-  //    var destinationDS = destinationVC.router!.dataStore!
-  //    passDataToSomewhere(source: dataStore!, destination: &destinationDS)
-  //    navigateToSomewhere(source: viewController!, destination: destinationVC)
-  //  }
-  //}
-
-  // MARK: Navigation
-  
-  //func navigateToSomewhere(source: NewsDetailViewController, destination: SomewhereViewController)
-  //{
-  //  source.show(destination, sender: nil)
-  //}
-  
-  // MARK: Passing data
-  
-  //func passDataToSomewhere(source: NewsDetailDataStore, destination: inout SomewhereDataStore)
-  //{
-  //  destination.name = source.name
-  //}
 }

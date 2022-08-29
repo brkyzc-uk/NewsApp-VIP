@@ -26,9 +26,14 @@ class NewsListPresenter: NewsListPresentationLogic
   func presentSomething(response: NewsList.FetchNews.Response)
   {
       var displayedNews : [NewsList.FetchNews.ViewModel.DisplayedNews] = []
+      
+      for news in response.news {
+          let displayedNews = NewsList.FetchNews.ViewModel.DisplayedNews(id: news.id, urlToImage: news.urlToImage, title: news.title, articleDescription: news.articleDescription)
+          displayedNews.append(displayedNews)
+      }
     
       
       let viewModel = NewsList.FetchNews.ViewModel(displayedNews: displayedNews)
-    viewController?.displaySomething(viewModel: viewModel)
+      viewController?.displayFetchedNews(viewModel: viewModel)
   }
 }

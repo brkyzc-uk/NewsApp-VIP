@@ -12,20 +12,23 @@
 
 import UIKit
 
-enum NewsDetail
-{
+enum NewsDetail {
   // MARK: Use cases
   
-  enum Something
-  {
-    struct Request
-    {
+  enum FetchNews {
+    struct Request {
+        var id: String?
     }
-    struct Response
-    {
+    struct Response {
+        var news: NewsResponseModel
     }
-    struct ViewModel
-    {
+    struct ViewModel {
+        struct DisplayedNews {
+            var urlToImage: String?
+            var title: String?
+            var articleDescription: String?
+        }
+        var displayedNews: DisplayedNews
     }
   }
 }

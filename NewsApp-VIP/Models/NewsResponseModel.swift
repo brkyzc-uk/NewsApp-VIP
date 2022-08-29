@@ -7,26 +7,20 @@
 
 import Foundation
 
-// MARK: - GameDetail
-struct GameDetail {
+// MARK: - News
+struct NewsResponseModel: Codable {
     
-    var status: String?
-    var totalResults: Int?
-    var articles: [Article]?
-}
-
-// MARK: - Article
-struct Article {
-    
-    var source: Source?
-    var author: String?
+    var id: String?
+    var urlToImage: String?
     var title: String?
     var articleDescription: String?
+    var source: Source?
+    var author: String?
     var url: String?
-    var urlToImage: String?
     var publishedAt: Date?
     var content: String?
 }
+
 
 // MARK: - Source
 struct Source {

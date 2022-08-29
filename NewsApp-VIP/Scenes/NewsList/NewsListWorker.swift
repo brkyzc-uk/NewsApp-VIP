@@ -12,9 +12,18 @@
 
 import UIKit
 
-class NewsListWorker
-{
-  func doSomeWork()
-  {
-  }
+class NewsListWorker {
+    var service: ServicesProtocol
+    
+    init(service: ServicesProtocol) {
+        self.service = service
+    }
+    func fetchNews(completion: @escaping (Result<[NewsResponseModel]?>) -> Void) {
+        service.getTopHeadlines { result in
+            DispatchQueue.main.async {
+                completion(result)
+            }
+            
+        }
+    }
 }
