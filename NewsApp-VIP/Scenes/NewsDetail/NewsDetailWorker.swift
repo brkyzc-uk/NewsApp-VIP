@@ -19,7 +19,7 @@ class NewsDetailWorker {
     init(service: ServicesProtocol) {
         self.service = service
     }
-    func fetchNews(completion: @escaping (Result<[NewsResponseModel]?>) -> Void) {
+    func fetchNews(request: NewsDetail.FetchNews.Request, completion: @escaping (Result<[NewsResponseModel]?>) -> Void) {
         service.getTopHeadlines { result in
             DispatchQueue.main.async {
                 completion(result)

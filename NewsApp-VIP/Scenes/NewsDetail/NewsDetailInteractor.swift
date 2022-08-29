@@ -35,10 +35,16 @@ class NewsDetailInteractor: NewsDetailBusinessLogic, NewsDetailDataStore
   
   func fetchNews(request: NewsDetail.FetchNews.Request)
   {
-    worker = NewsDetailWorker()
-    worker?.doSomeWork()
+    worker = NewsDetailWorker(service: APIService())
+      var request = request
+      request.id = news.id
+      worker?.fetchNews(request: request, completion: {(news, error) in
+          if let news = news {
+              let response = NewsDetail.FetchNews.Response(news: news)
+              presenter?.presentNews(response: response)
+          }
+      })
     
-    let response = NewsDetail.FetchNews.Response(news: news)
-    presenter?.presentNews(response: response)
+
   }
 }
